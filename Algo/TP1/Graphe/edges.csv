@@ -1,0 +1,4 @@
+From Type, From Name, Edge, To Type, To Name
+Node, 3, NEXT, Node, 2
+Node, 3, NEXT, Node, 4
+Node, 2, NEXT, Node, 1
