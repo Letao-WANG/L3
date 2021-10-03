@@ -1,0 +1,7 @@
+From Type, From Name, Edge, To Type, To Name
+arbreNode, 3, NEXT, arbreNode, 7
+arbreNode, 2, NEXT, arbreNode, 5
+arbreNode, 2, NEXT, arbreNode, 6
+arbreNode, 1, NEXT, arbreNode, 2
+arbreNode, 1, NEXT, arbreNode, 3
+arbreNode, 1, NEXT, arbreNode, 4
