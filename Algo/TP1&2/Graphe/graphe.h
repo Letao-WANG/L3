@@ -30,3 +30,6 @@ grapheNode *searchNode(grapheNodes_s *, int);
 
 void BFS(grapheNodes_s *);
 void DFS(grapheNodes_s *);
+
+void marquerVoisins(int**, int, int);
+void plusCourtChemin(int **, int, int, int *, int *);

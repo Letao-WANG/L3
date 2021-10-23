@@ -10,14 +10,6 @@ int main()
 
     grapheNodes_s *graphe_nodes;
     ghs_init(&graphe_nodes, 1);
-    // for (int i = 0; i < num_row; i++)
-    // {
-    //     for (int j = 0; j < num_row; j++)
-    //     {
-    //         printf("%d ", matrixAdjacency[i][j]);
-    //     }
-    //     printf("\n");
-    // }
 
     for (int i = 1; i < num_row; i++)
     {
@@ -35,7 +27,19 @@ int main()
                 gh_insert_node(&node1, &node2);
             }
         }
+    } 
+    // marquerVoisins(matrixAdjacency, 4, 3);
+    // BFS(graphe_nodes);
+
+    int *l = (int*)malloc(sizeof(int)*num_row);
+    int *pred = (int*)malloc(sizeof(int)*num_row);
+    plusCourtChemin(matrixAdjacency, num_row, 2, l, pred);
+
+    for(int i =0; i<num_row; i++)
+    {
+        printf("%d ", l[i]);
     }
-    BFS(graphe_nodes);
+    printf("\n");
+
     return 0;
 }

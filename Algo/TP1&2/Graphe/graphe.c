@@ -6,7 +6,7 @@ void chargeGraphe(int ***adjacence, int num_row)
 {
     FILE *in = fopen("matrix.data", "r");
     int buf[1024];
-    
+
     *adjacence = (int **)malloc(sizeof(int *) * num_row);
     for (int i = 0; i < num_row; i++)
     {
@@ -249,4 +249,79 @@ void DFS(grapheNodes_s *nodes)
     }
     fclose(fPtr_edge);
     fclose(fPtr_node);
+}
+
+void marquerVoisins(int **adjacence, int ordre, int s)
+{
+    int *marques;
+    int x, y;
+
+    marques = (int *)malloc(sizeof(int) * ordre);
+
+    for (x = 0; x < ordre; x++)
+    {
+        marques[x] = 0;
+    }
+
+    marques[s] = 1;
+
+    for (x = 0; x < ordre; x++)
+    {
+        if (marques[x])
+        {
+            for (y = 0; y < ordre; y++)
+            {
+                if (adjacence[x][y] && !marques[y])
+                {
+                    marques[y] = 1;
+                }
+            }
+        }
+        for (int i = 0; i < ordre; i++)
+        {
+            printf("%d ", marques[i]);
+        }
+        printf("\n");
+    }
+}
+// Procédure qui recherche le plus court chemin depuis un sommet de référence
+// Paramètres :
+// adjacence : matrice d’adjacence du graphe
+// ordre : nombre de sommets
+// s : numéro de sommet de référence
+// l : tableau dynamique alloué des longueurs minimales des sommets depuis s
+// pred : tableau dynamique alloué des prédécesseurs des sommets
+void plusCourtChemin(int **adjacence, int ordre, int s, int *l, int *pred)
+{
+    int *marques;
+    int x, y;
+    ll_s *f;
+
+    marques = (int *)malloc(sizeof(int) * ordre);
+    for (x = 0; x < ordre; x++)
+    {
+        marques[x] = 0;
+        l[x] = 0;
+    }
+
+    marques[s] = 1;
+    ll_init(&f, s);
+
+    while (f)
+    {
+        ll_s *firstNode = ll_firstNode(f);
+        x = firstNode->data;
+        for (y = 0; y < ordre; y++)
+        {
+            if (adjacence[x][y] && !marques[y])
+            {
+                marques[y] = 1;  // marquer le sommet y
+                ll_s * lastNode = ll_lastNode(f);
+                ll_insert(&lastNode, y);              // enfiler le sommet y dans f
+                pred[y] = x; // x est le prédécesseur de y
+                l[y] = l[x] + 1; // // incrémenter la longueur de y
+            }
+        }
+        ll_deleteFirst(&f);
+    }
 }
