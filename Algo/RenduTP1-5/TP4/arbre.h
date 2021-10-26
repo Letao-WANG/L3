@@ -14,6 +14,8 @@ void ar_init(arbreNode **, int);
 
 void ar_insert(arbreNode **, int);
 
+void ar_insertNode(arbreNode **, arbreNode **);
+
 void searchArbreNode(arbreNode*, arbreNode*, int);
 
 void delete_arbreNode(arbreNode **);
@@ -29,5 +31,3 @@ void create_arbreNodes_file(arbreNode *);
 void write_arbreNodes_file(arbreNode *);
 
 int appear(int[], int);
-
-int **matrixAdjence(arbreNode *);

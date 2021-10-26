@@ -27,4 +27,3 @@ grapheNode **gh_voisin(grapheNodes_s *, grapheNode *, int *);
 grapheNode *searchNode(grapheNodes_s *, int);
 
 void BFS(grapheNodes_s *);
-void DFS(grapheNodes_s *);

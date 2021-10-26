@@ -1,7 +1,7 @@
 #include "arbre.h"
 #include <stdio.h>
 
-void init(arbreNode **orig_arbreNode, int data)
+void ar_init(arbreNode **orig_arbreNode, int data)
 {
     (*orig_arbreNode) = (arbreNode *)malloc(sizeof(arbreNode));
     (*orig_arbreNode)->data = data;
@@ -11,17 +11,34 @@ void init(arbreNode **orig_arbreNode, int data)
     (*orig_arbreNode)->visited = 0;
 }
 
-void insert(arbreNode **spec_arbreNode, int data)
+void ar_insert(arbreNode **spec_arbreNode, int data)
 {
     if (*spec_arbreNode != NULL)
     {
         arbreNode *add_arbreNode;
-        init(&add_arbreNode, data);
+        ar_init(&add_arbreNode, data);
         (*spec_arbreNode)->child[(*spec_arbreNode)->child_num] = add_arbreNode;
         (*spec_arbreNode)->child_num++;
         add_arbreNode->parent = (*spec_arbreNode);
     }
 }
+
+
+void searchArbreNode(arbreNode* root, arbreNode* dest, int data)
+{
+    if(root->data == data){
+        *dest = *root;
+    }
+    else if (root != NULL)
+    {
+        for (int i = 0; i < root->child_num; i++)
+        {
+            // printf("data %d -> %d\n", root->data, root->child[i]->data);
+            searchArbreNode(root->child[i], dest, data);
+        }
+    }
+}
+
 
 void delete_arbreNode(arbreNode **del_arbreNode)
 {
@@ -35,39 +52,17 @@ void delete_arbreNode(arbreNode **del_arbreNode)
     }
 }
 
-void view(arbreNode *root)
+
+
+void ar_view(arbreNode *root)
 {
-    if ((root->child) != NULL)
+    if ((*root->child) != NULL)
     {
         for (int i = 0; i < root->child_num; i++)
         {
             printf("%d -> %d\n", root->data, root->child[i]->data);
-            view(root->child[i]);
+            ar_view(root->child[i]);
         }
-    }
-}
-
-void searchArbreNode(arbreNode *root, arbreNode *dest, int data)
-{
-    if (root->data == data)
-    {
-        *dest = *root;
-    }
-    else if (root != NULL)
-    {
-        for (int i = 0; i < root->child_num; i++)
-        {
-            // printf("data %d -> %d\n", root->data, root->child[i]->data);
-            searchArbreNode(root->child[i], dest, data);
-        }
-    }
-}
-
-void ar_firstNode(arbreNode *root)
-{
-    while (root->parent != NULL)
-    {
-        root = root->parent;
     }
 }
 
@@ -75,7 +70,7 @@ void create_edges_file(arbreNode *root)
 {
     char *title = "From Type, From Name, Edge, To Type, To Name";
     FILE *fPtr;
-    fPtr = fopen("output/edges.csv", "w");
+    fPtr = fopen("edges.csv", "w");
     if (fPtr == NULL)
     {
         printf("Unable to create file.\n");
@@ -90,7 +85,7 @@ void write_edges_file(arbreNode *root)
 {
     FILE *fPtr;
     // append
-    fPtr = fopen("output/edges.csv", "a");
+    fPtr = fopen("edges.csv", "a");
     if (fPtr == NULL)
     {
         printf("Unable to create file.\n");
@@ -110,7 +105,7 @@ void create_arbreNodes_file(arbreNode *root)
 {
     char *title = "Type, Name, Description, Image, Reference";
     FILE *fPtr;
-    fPtr = fopen("output/arbreNodes.csv", "w");
+    fPtr = fopen("arbreNodes.csv", "w");
     if (fPtr == NULL)
     {
         printf("Unable to create file.\n");
@@ -127,7 +122,7 @@ void write_arbreNodes_file(arbreNode *root)
     int exist_number = 0;
     FILE *fPtr;
     // append
-    fPtr = fopen("output/arbreNodes.csv", "a");
+    fPtr = fopen("arbreNodes.csv", "a");
     if (fPtr == NULL)
     {
         printf("Unable to create file.\n");

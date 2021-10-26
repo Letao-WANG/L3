@@ -10,17 +10,15 @@ typedef struct arbreNode
     int visited;
 } arbreNode;
 
-void init(arbreNode **, int);
+void ar_init(arbreNode **, int);
 
-void insert(arbreNode **, int);
+void ar_insert(arbreNode **, int);
 
-void ar_firstNode(arbreNode *);
+void searchArbreNode(arbreNode*, arbreNode*, int);
 
 void delete_arbreNode(arbreNode **);
 
-void view(arbreNode *);
-
-void searchArbreNode(arbreNode *, arbreNode *, int);
+void ar_view(arbreNode *);
 
 void create_edges_file(arbreNode *);
 

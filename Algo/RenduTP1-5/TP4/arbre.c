@@ -23,6 +23,16 @@ void ar_insert(arbreNode **spec_arbreNode, int data)
     }
 }
 
+void ar_insertNode(arbreNode **spec_arbreNode, arbreNode **autre_arbreNode)
+{
+    if (*spec_arbreNode != NULL && *autre_arbreNode != NULL)
+    {
+        (*spec_arbreNode)->child[(*spec_arbreNode)->child_num] = (*autre_arbreNode);
+        (*spec_arbreNode)->child_num++;
+        (*autre_arbreNode)->parent = (*spec_arbreNode);
+    }
+}
+
 
 void searchArbreNode(arbreNode* root, arbreNode* dest, int data)
 {
@@ -155,8 +165,4 @@ int appear(int array[], int number)
         }
     }
     return appear;
-}
-
-int **matrixAdjence(arbreNode *root)
-{
 }
