@@ -23,8 +23,6 @@ int max(int, int);
  
 int height(ptrNode);
  
-int max(int a, int b);
- 
 ptrNode rightRotate(ptrNode);
  
 ptrNode leftRotate(ptrNode);
