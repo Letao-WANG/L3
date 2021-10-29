@@ -9,5 +9,7 @@ typedef struct node
 } node, *ptrNode;
 
 ptrNode newNode(int);
-void parcoursPrefixe(ptrNode );
+void printTree(ptrNode, int, int);
+void printfNodes(ptrNode, ptrNode, int, int);
+void printfSpace(int);
 arraylist* constructTrees(int, int);

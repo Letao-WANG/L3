@@ -1,3 +1,7 @@
 .ipynb_checkpoints
 .json
 /.vscode
+**.iml
+**.xml
+**.idea
+**.vs

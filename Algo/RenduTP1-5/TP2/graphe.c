@@ -251,6 +251,7 @@ void plusCourtChemin(int **adjacence, int ordre, int s, int *l, int *pred)
     {
         ll_s *firstNode = ll_firstNode(f);
         x = firstNode->data;
+        
         for (y = 0; y < ordre; y++)
         {
             if (adjacence[x][y] && !marques[y])
