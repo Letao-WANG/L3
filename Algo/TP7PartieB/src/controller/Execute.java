@@ -175,7 +175,7 @@ public class Execute {
 
             //�criture du chemin dans un fichier de sortie
             try {
-                File file = new File("out.txt");
+                File file = new File("src/data/out.txt");
                 if (!file.exists()) {
                     file.createNewFile();
                 }
