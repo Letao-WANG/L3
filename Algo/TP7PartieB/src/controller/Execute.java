@@ -17,7 +17,7 @@ public class Execute {
         //Lecture de la carte et cr�ation du graphe
         try {
             //TODO: obtenir le fichier qui d�crit la carte
-            File myObj = new File("src/data/graph.txt");
+            File myObj = new File("TP7PartieB/src/data/graph.txt");
             Scanner myReader = new Scanner(myObj);
             String data = "";
             //On ignore les deux premi�res lignes
@@ -56,32 +56,90 @@ public class Execute {
                 }
             }
 
-            // ajouter les arretes
+            // set weights direction horizontally or vertically
             for (int line = 0; line < nlines; line++) {
                 for (int col = 0; col < ncols; col++) {
                     int source = line * ncols + col;
                     double weight = -1;
                     ArrayList<Integer> listNeighborDest = Util.getNeighborDest(line, col, nlines, ncols);
-                    for(int dest : listNeighborDest){
+                    for (int dest : listNeighborDest) {
                         double timeDest = graph.getVertexlist().get(dest).getIndivTime();
                         double timeSrc = graph.getVertexlist().get(source).getIndivTime();
-
-//                        double timeSrcTop = graph.getVertexlist().get(source-ncols).getIndivTime();
-//                        double timeSrcRight = graph.getVertexlist().get(source+1).getIndivTime();
-//                        double timeSrcLeft = graph.getVertexlist().get(source-1).getIndivTime();
-//                        double timeSrcBottom = graph.getVertexlist().get(source+ncols).getIndivTime();
-
                         // direction horizontally or vertically
-                        if(Math.abs(source-dest) == 1 || Math.abs(source-dest) == ncols){
-                            weight = (timeDest + timeSrc)/2;
+                        if (Math.abs(source - dest) == 1 || Math.abs(source - dest) == ncols) {
+                            weight = (timeDest + timeSrc) / 2;
                         }
                         // direction  diagonal
+
                         // direction right top
-//                        else if(dest - source == -ncols+1){
-//                            double weight1 = Math.sqrt(Math.pow(graph.getVertexlist().get(source-ncols).getIndivTime(),2)
-//                                    +Math.pow(,2));
-//                        }
-                        if(weight != -1){
+                        else if (dest - source == -ncols + 1) {
+                            // up and right
+                            double timeTopMid = graph.getVertexlist().get(source - ncols).getIndivTime();
+                            double weight1 = (timeSrc + timeTopMid) / 2;
+                            double weight2 = (timeTopMid + timeDest) / 2;
+                            double weight12 = Math.sqrt(Math.pow(weight1, 2) + Math.pow(weight2, 2));
+
+                            // bottom and right
+                            double timeBottomMid = graph.getVertexlist().get(source +1).getIndivTime();
+                            double weight3 = (timeSrc + timeBottomMid) / 2;
+                            double weight4 = (timeBottomMid + timeDest) / 2;
+                            double weight34 = Math.sqrt(Math.pow(weight3, 2) + Math.pow(weight4, 2));
+
+                            weight = Math.min(weight12, weight34);
+                        }
+
+                        // direction right bottom
+                        else if (dest - source == ncols + 1) {
+                            // down and right
+                            double timeDownMid = graph.getVertexlist().get(source + ncols).getIndivTime();
+                            double weight3 = (timeSrc + timeDownMid) / 2;
+                            double weight4 = (timeDownMid + timeDest) / 2;
+                            double weight34 = Math.sqrt(Math.pow(weight3, 2) + Math.pow(weight4, 2));
+
+                            // right and down
+                            double timeRightMid = graph.getVertexlist().get(source +1).getIndivTime();
+                            double weight1 = (timeSrc + timeRightMid) / 2;
+                            double weight2 = (timeRightMid + timeDest) / 2;
+                            double weight12 = Math.sqrt(Math.pow(weight1, 2) + Math.pow(weight2, 2));
+
+                            weight = Math.min(weight12, weight34);
+                        }
+
+                        // direction left top
+                        else if (dest - source == -ncols - 1) {
+                            // up and right
+                            double timeTopMid = graph.getVertexlist().get(source - ncols).getIndivTime();
+                            double weight1 = (timeSrc + timeTopMid) / 2;
+                            double weight2 = (timeTopMid + timeDest) / 2;
+                            double weight12 = Math.sqrt(Math.pow(weight1, 2) + Math.pow(weight2, 2));
+
+                            // bottom and right
+                            double timeLeftMid = graph.getVertexlist().get(source -1).getIndivTime();
+                            double weight3 = (timeSrc + timeLeftMid) / 2;
+                            double weight4 = (timeLeftMid + timeDest) / 2;
+                            double weight34 = Math.sqrt(Math.pow(weight3, 2) + Math.pow(weight4, 2));
+
+                            weight = Math.min(weight12, weight34);
+                        }
+
+                        // direction left down
+                        else if (dest - source == ncols - 1) {
+                            // down and left
+                            double timeDownMid = graph.getVertexlist().get(source + ncols).getIndivTime();
+                            double weight1 = (timeSrc + timeDownMid) / 2;
+                            double weight2 = (timeDownMid + timeDest) / 2;
+                            double weight12 = Math.sqrt(Math.pow(weight1, 2) + Math.pow(weight2, 2));
+
+                            // bottom and right
+                            double timeLeftMid = graph.getVertexlist().get(source -1).getIndivTime();
+                            double weight3 = (timeSrc + timeLeftMid) / 2;
+                            double weight4 = (timeLeftMid + timeDest) / 2;
+                            double weight34 = Math.sqrt(Math.pow(weight3, 2) + Math.pow(weight4, 2));
+
+                            weight = Math.min(weight12, weight34);
+                        }
+
+                        if (weight != -1) {
                             graph.addEgde(source, dest, weight);
                         }
                     }

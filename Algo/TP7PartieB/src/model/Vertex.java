@@ -23,6 +23,16 @@ public class Vertex {
         this.adjacencylist.addFirst(e);
     }
 
+    public double getEdgeWeight(int dest){
+        for(Edge e : adjacencylist){
+            if(e.getDestination() == dest){
+                return e.getWeight();
+            }
+        }
+        // dest is not neighbor of this vertex
+        return Double.POSITIVE_INFINITY;
+    }
+
     public double getIndivTime() {
         return indivTime;
     }

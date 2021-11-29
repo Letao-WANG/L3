@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Util {
     /**
-     *
+     * For getting all max to 8 neighbors('s num) of this vertex
      * @param line line of source
      * @param col col of source
      * @param nlines number of lines
      * @param ncols number of cols
-     * @return
+     * @return list of neighbors vertex
      */
     public static ArrayList<Integer> getNeighborDest(int line, int col, int nlines, int ncols) {
         ArrayList<Integer> listNeighbor = new ArrayList<>();

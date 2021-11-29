@@ -100,7 +100,6 @@ public class App {
             to_visit.add(v.getNum());
         }
         int min_v = start;
-        ArrayList<ArrayList<Integer>> listPath = new ArrayList<>();
         while (to_visit.contains(end)) {
             //trouver le noeud min_v parmis tous les noeuds v ayant la distance temporaire
             //      graph.vertexlist.get(v).timeFromSource minimale.
@@ -124,20 +123,20 @@ public class App {
                 if(to_visit.contains(to_try)){
                     double newTimeFromSource = graph.getVertexlist().get(min_v).getTimeFromSource()
                             + graph.getVertexlist().get(min_v).getAdjacencylist().get(i).getWeight();
+
                     if (newTimeFromSource < graph.getVertexlist().get(to_try).getTimeFromSource()) {
                         graph.getVertexlist().get(to_try).setTimeFromSource(newTimeFromSource);
+                        graph.getVertexlist().get(to_try).setPrev(graph.getVertexlist().get(min_v));
                     }
-                    graph.getVertexlist().get(to_try).setPrev(graph.getVertexlist().get(min_v));
                 }
             }
             //On met � jour l'affichage
             try {
                 board.update(graph, min_v);
-                Thread.sleep(1);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 System.out.println("stop");
             }
-
         }
 
         System.out.println("Done! Using Dijkstra:");
