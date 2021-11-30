@@ -170,7 +170,7 @@ public class Execute {
 
             //On appelle Dijkstra
 //            LinkedList<Integer> path = Dijkstra(graph, startV, endV, nlines * ncols, board);
-            LinkedList<Integer> path = AStar(graph, startV, endV, nlines*ncols, 5000, board);
+            LinkedList<Integer> path = AStar(graph, startV, endV, ncols, nlines*ncols, board);
             //TODO: laisser le choix entre Dijkstra et A*
 
             //�criture du chemin dans un fichier de sortie

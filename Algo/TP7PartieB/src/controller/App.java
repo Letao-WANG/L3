@@ -50,8 +50,14 @@ public class App {
         for(Vertex v : graph.getVertexlist()){
             int lineV = v.getNum()/ncols;
             int colV = v.getNum()%ncols;
-            v.setHeuristic(Util.getEuclideanDistance(lineEnd, lineV, colEnd, colV)*0.3);
+            v.setHeuristic(Util.getEuclideanDistance(lineEnd, lineV, colEnd, colV)*5);
         }
+
+//        System.out.println("ncols: " + ncols);
+//        for(Vertex v: graph.getVertexlist()){
+//            System.out.println("Num :" + v.getNum() + " line :" + v.getNum()/ncols
+//                    + " col :" + v.getNum()%ncols + " Heuristic :" + v.getHeuristic());
+//        }
 
         while (to_visit.contains(end)) {
             // trouver le noeud min_v parmis tous les noeuds v ayant la distance temporaire
@@ -87,7 +93,7 @@ public class App {
             //On met � jour l'affichage
             try {
                 board.update(graph, min_v);
-                Thread.sleep(1);
+                Thread.sleep(5);
             } catch (InterruptedException e) {
                 System.out.println("stop");
             }
