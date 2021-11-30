@@ -50,7 +50,7 @@ public class App {
         for(Vertex v : graph.getVertexlist()){
             int lineV = v.getNum()/ncols;
             int colV = v.getNum()%ncols;
-            v.setHeuristic(Util.getEuclideanDistance(lineEnd, lineV, colEnd, colV)*0.5);
+            v.setHeuristic(Util.getEuclideanDistance(lineEnd, lineV, colEnd, colV)*0.3);
         }
 
         while (to_visit.contains(end)) {
@@ -78,7 +78,7 @@ public class App {
                     double newTimeFromSource = graph.getVertexlist().get(min_v).getTimeFromSource()
                             + graph.getVertexlist().get(min_v).getAdjacencylist().get(i).getWeight();
 
-                    if (newTimeFromSource < graph.getVertexlist().get(to_try).getTimeFromSource()) {
+                    if (newTimeFromSource < graph.getVertexlist().get(to_try).getTimeFromSource() ) {
                         graph.getVertexlist().get(to_try).setTimeFromSource(newTimeFromSource);
                         graph.getVertexlist().get(to_try).setPrev(graph.getVertexlist().get(min_v));
                     }
@@ -98,8 +98,12 @@ public class App {
         System.out.println("	Number of nodes explored: " + number_tries);
         System.out.println("	Total time of the path: " + graph.getVertexlist().get(end).getTimeFromSource());
         LinkedList<Integer> path = new LinkedList<Integer>();
-        path.addFirst(end);
-        //TODO: remplir la liste path avec le chemin
+        //remplir la liste path avec le chemin
+        Vertex node = graph.getVertexlist().get(end);
+        while(node.getNum() != 0){
+            path.addFirst(node.getNum());
+            node = node.getPrev();
+        }
 
         board.addPath(graph, path);
         return path;
