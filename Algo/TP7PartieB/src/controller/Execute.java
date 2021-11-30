@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 import static controller.App.Dijkstra;
+import static controller.App.AStar;
 import static controller.App.drawBoard;
 
 public class Execute {
@@ -17,7 +18,7 @@ public class Execute {
         //Lecture de la carte et cr�ation du graphe
         try {
             //TODO: obtenir le fichier qui d�crit la carte
-            File myObj = new File("TP7PartieB/src/data/graph.txt");
+            File myObj = new File("src/data/graph.txt");
             Scanner myReader = new Scanner(myObj);
             String data = "";
             //On ignore les deux premi�res lignes
@@ -168,7 +169,8 @@ public class Execute {
             }
 
             //On appelle Dijkstra
-            LinkedList<Integer> path = Dijkstra(graph, startV, endV, nlines * ncols, board);
+//            LinkedList<Integer> path = Dijkstra(graph, startV, endV, nlines * ncols, board);
+            LinkedList<Integer> path = AStar(graph, startV, endV, nlines*ncols, 5000, board);
             //TODO: laisser le choix entre Dijkstra et A*
 
             //�criture du chemin dans un fichier de sortie

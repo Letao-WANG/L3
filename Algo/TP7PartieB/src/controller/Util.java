@@ -93,4 +93,8 @@ public class Util {
 
         return listNeighbor;
     }
+    
+    public static double getEuclideanDistance(int line1, int line2, int col1, int col2){
+        return Math.sqrt(Math.pow(line1-line2, 2)+ Math.pow(col1-col2,2));
+    }
 }
