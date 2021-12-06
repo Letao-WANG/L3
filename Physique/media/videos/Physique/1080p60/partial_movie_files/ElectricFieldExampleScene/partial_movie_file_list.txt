@@ -1,0 +1,2 @@
+# This file is used internally by FFMPEG.
+file 'file:D:/L3/Physique/media/videos/Physique/1080p60/partial_movie_files/ElectricFieldExampleScene/450974505_3778596913_3892025117.mp4'
