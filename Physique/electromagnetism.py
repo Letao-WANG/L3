@@ -160,7 +160,7 @@ class CurrentMagneticField(ArrowVectorField):
     #     return direction
 
 
-class MyField(ArrowVectorField):
+class MagneticField(ArrowVectorField):
     def __init__(self, *currents: Current, **kwargs):
         super().__init__(lambda p: self.field_func(p, *currents), **kwargs)
 
