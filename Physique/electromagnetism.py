@@ -56,32 +56,32 @@ class ElectricField(ArrowVectorField):
             **kwargs
         )
 
-    def field_func(self, p):
-        direction = np.zeros(3)
-        for charge in self.charges:
-            # mag = 1/(4 * PI * Epsilon ) * Q
-            mag = charge.magnitude
-            x, y, z = p - charge.get_center()
-            dist = (x ** 2 + y ** 2) ** 1.5
-            direction += mag * np.array([x / (dist**2), y / (dist**2), 0])
-        return direction
-
     # def field_func(self, p):
     #     direction = np.zeros(3)
-    #     pos = []
     #     for charge in self.charges:
-    #         p0, mag = charge.get_center(), charge.magnitude
-    #         pos.append(p0)
-    #         x, y, z = p - p0
+    #         # mag = 1/(4 * PI * Epsilon ) * Q
+    #         mag = charge.magnitude
+    #         x, y, z = p - charge.get_center()
     #         dist = (x ** 2 + y ** 2) ** 1.5
-    #         if any((p - p0) ** 2 > 0.05):
-    #             direction += mag * np.array([x / dist, y / dist, 0])
-    #         else:
-    #             direction += np.zeros(3)
-    #     for p0 in pos:
-    #         if all((p - p0) ** 2 <= 0.05):
-    #             direction = np.zeros(3)
+    #         direction += mag * np.array([x / (dist**2), y / (dist**2), 0])
     #     return direction
+
+    def field_func(self, p):
+        direction = np.zeros(3)
+        pos = []
+        for charge in self.charges:
+            p0, mag = charge.get_center(), charge.magnitude
+            pos.append(p0)
+            x, y, z = p - p0
+            dist = (x ** 2 + y ** 2) ** 1.5
+            if any((p - p0) ** 2 > 0.05):
+                direction += mag * np.array([x / dist, y / dist, 0])
+            else:
+                direction += np.zeros(3)
+        for p0 in pos:
+            if all((p - p0) ** 2 <= 0.05):
+                direction = np.zeros(3)
+        return direction
 
     def get_force_on_charge(self, charge):
         p = charge.get_center()
