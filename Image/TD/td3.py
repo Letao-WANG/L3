@@ -148,8 +148,8 @@ for i in range(img.shape[0]):
 
 # plt.imshow(img, cmap=plt.cm.gray, vmin=0, vmax=max_val)
 # plt.show()
-plt.imshow(img_egalisation, cmap=plt.cm.gray, vmin=0, vmax=max_val)
-plt.show()
+# plt.imshow(img_egalisation, cmap=plt.cm.gray, vmin=0, vmax=max_val)
+# plt.show()
 
 
 
@@ -201,3 +201,17 @@ for seuil in range(256):
     for i in range(seuil, 256):
         w2 += histogram[i]
         mu2 += i + histogram[i]
+
+        if w1 == 0 or w2 == 0:
+            continue
+
+    mu1 /= w1
+    mu2 /= w2
+    w1 /= (img.shape[0] * img.shape[1])
+    w2 /= (img.shape[0] * img.shape[1])
+
+    #variance
+    s1 = 0
+    s2 = 0
+    for i in range(0, seuil):
+        s1 += (i)
