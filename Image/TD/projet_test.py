@@ -133,13 +133,16 @@ def fusion_image_rgb(image_r, image_g, image_b):
 # plt.show()
 
 
-image = (mpimg.imread('sample_image/1_1.png').copy() * 255).astype(np.uint8)
-image_rgb = get_image_rgb(image)
-# image_eq = equalization_rgb(image_rgb)
+def main():
+    image = (mpimg.imread('sample_image/1_1.png').copy() * 255).astype(np.uint8)
+    image_rgb = get_image_rgb(image)
+    # image_eq = equalization_rgb(image_rgb)
+
+    image_r, image_g, image_b = divide_image_rpg(image_rgb)
+    image_fusion = fusion_image_rgb(image_r, image_g, image_b)
+
+    plt.imshow(image_fusion)
+    plt.show()
 
 
-image_r, image_g, image_b = divide_image_rpg(image_rgb)
-image_fusion = fusion_image_rgb(image_r, image_g, image_b)
-
-plt.imshow(image_fusion)
-plt.show()
+main()

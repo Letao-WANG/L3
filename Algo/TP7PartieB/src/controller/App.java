@@ -4,13 +4,7 @@ package controller;// Par Sylvain Lobry, pour le cours "IF05X040 Algorithmique a
 import model.Graph;
 import model.Vertex;
 import view.Board;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import javax.swing.JFrame;
 
@@ -35,7 +29,7 @@ public class App {
     //numberV: le nombre de cases dans la carte
     //board: l'affichage
     //retourne une liste d'entiers correspondant au chemin.
-    public static LinkedList<Integer> AStar(Graph graph, int start, int end, int ncols, int numberV, Board board) {
+    public static LinkedList<Integer> AStar(Graph graph, int start, int end, int ncols, int numberV, Board board, int velocity) {
         graph.getVertexlist().get(start).setTimeFromSource(0);
         int number_tries = 0;
 
@@ -53,18 +47,11 @@ public class App {
             v.setHeuristic(Util.getEuclideanDistance(lineEnd, lineV, colEnd, colV)*5);
         }
 
-//        System.out.println("ncols: " + ncols);
-//        for(Vertex v: graph.getVertexlist()){
-//            System.out.println("Num :" + v.getNum() + " line :" + v.getNum()/ncols
-//                    + " col :" + v.getNum()%ncols + " Heuristic :" + v.getHeuristic());
-//        }
-
         while (to_visit.contains(end)) {
             // trouver le noeud min_v parmis tous les noeuds v ayant la distance temporaire
             //      (graph.vertexlist.get(v).timeFromSource + heuristic) minimale.
 
-            //On l'enl�ve des noeuds � visiter
-            ////////////////////////// TO CHANGE !!!!
+            //We choose the wanted node, and delete it in the visit group
             int min_v = start;
             double fmin = Double.POSITIVE_INFINITY;
             for(Vertex v : graph.getVertexlist()){
@@ -76,7 +63,7 @@ public class App {
             to_visit.remove(min_v);
             number_tries += 1;
 
-            //pour tous ses voisins, on v�rifie si on est plus rapide en passant par ce noeud.
+            //pour tous ses voisins, on verifie si on est plus rapide en passant par ce noeud.
             for (int i = 0; i < graph.getVertexlist().get(min_v).getAdjacencylist().size(); i++) {
                 int to_try = graph.getVertexlist().get(min_v).getAdjacencylist().get(i).getDestination();
                 // to_try node timeFromSource += weight
@@ -93,7 +80,7 @@ public class App {
             //On met � jour l'affichage
             try {
                 board.update(graph, min_v);
-                Thread.sleep(5);
+                Thread.sleep(velocity);
             } catch (InterruptedException e) {
                 System.out.println("stop");
             }
@@ -124,7 +111,7 @@ public class App {
     //numberV: le nombre de cases dans la carte
     //board: l'affichage
     //retourne une liste d'entiers correspondant au chemin.
-    public static LinkedList<Integer> Dijkstra(Graph graph, int start, int end, int numberV, Board board) {
+    public static LinkedList<Integer> Dijkstra(Graph graph, int start, int end, int numberV, Board board, int velocity) {
         graph.getVertexlist().get(start).setTimeFromSource(0);
         int number_tries = 0;
 
@@ -167,7 +154,7 @@ public class App {
             //On met � jour l'affichage
             try {
                 board.update(graph, min_v);
-                Thread.sleep(10);
+                Thread.sleep(velocity);
             } catch (InterruptedException e) {
                 System.out.println("stop");
             }

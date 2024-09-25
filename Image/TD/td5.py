@@ -4,6 +4,11 @@ import numpy as np
 
 
 def load_jpg(source):
+    """
+    For jpg
+    :param source:
+    :return: gris
+    """
     image = mpimg.imread(source)
     size = image.shape
     img_gris = np.zeros([size[0], size[1]], dtype=np.uint8)
